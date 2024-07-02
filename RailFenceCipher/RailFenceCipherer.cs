@@ -6,7 +6,6 @@
         {
            
             List<string[]> reuslt = CreateEmptyResultArray(StringToEncode, numberOfRails);
-            //currentVericalPosition = stringToEncode[index]
             FillResultArray(StringToEncode, numberOfRails, reuslt);
             return FormatResultArrayToString(reuslt);
         }
@@ -43,9 +42,6 @@
 
         private List<string[]> CreateEmptyResultArray(string StringToEncode, int numberOfRails)
         {
-            //Array kann zwei Demensional deterministisch von Anfang an vorbelegt werden
-            //Jedes (Sub) Array muss so groß sein, wie die länge des Strings
-
             List<string[]> reuslt = new List<string[]>();
             for (int i = 0; i < numberOfRails; i++)
             {
@@ -69,7 +65,6 @@
                     }
                 }
             }
-
             return resultString;
         }
     }
