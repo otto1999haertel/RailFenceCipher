@@ -4,22 +4,73 @@
     {
         public string Encode(string StringToEncode, int numberOfRails)
         {
-            int currentVericalPosition=0;
+           
+            List<string[]> reuslt = CreateEmptyResultArray(StringToEncode, numberOfRails);
+            //currentVericalPosition = stringToEncode[index]
+            FillResultArray(StringToEncode, numberOfRails, reuslt);
+            return FormatResultArrayToString(reuslt);
+        }
+
+        private void  FillResultArray(string StringToEncode, int numberOfRails, List<string[]> reuslt)
+        {
+            int currentVericalPosition = 0;
+            bool increment = true;
+            for (int i = 0; i < StringToEncode.Length; i++)
+            {
+                reuslt[currentVericalPosition][i] = StringToEncode[i].ToString();
+                if (currentVericalPosition <= numberOfRails && increment)
+                {
+                    currentVericalPosition++;
+                }
+                if (currentVericalPosition == numberOfRails)
+                {
+                    increment = false;
+                }
+                if (currentVericalPosition >= 0 && !increment)
+                {
+                    if (currentVericalPosition == numberOfRails)
+                    {
+                        currentVericalPosition--;
+                    }
+                    currentVericalPosition--;
+                }
+                if (currentVericalPosition == 0)
+                {
+                    increment = true;
+                }
+            }
+        }
+
+        private List<string[]> CreateEmptyResultArray(string StringToEncode, int numberOfRails)
+        {
             //Array kann zwei Demensional deterministisch von Anfang an vorbelegt werden
-            //Jedes Array muss so groß sein, wie die länge des Strings
+            //Jedes (Sub) Array muss so groß sein, wie die länge des Strings
 
             List<string[]> reuslt = new List<string[]>();
-            for(int i=0; i< numberOfRails; i++)
+            for (int i = 0; i < numberOfRails; i++)
             {
-                string[]temp = new string[StringToEncode.Length];
+                string[] temp = new string[StringToEncode.Length];
                 reuslt.Add(temp);
             }
-            //currentVericalPosition = stringToEncode[index]
-            do
+
+            return reuslt;
+        }
+
+        private string FormatResultArrayToString(List<string[]> result)
+        {
+            string resultString = "";
+            foreach (string[] strArray in result)
             {
-                currentVericalPosition++;
-            } while(currentVericalPosition<StringToEncode.Length);
-            return "";
+                foreach(string str in strArray)
+                {
+                    if (str != null)
+                    {
+                        resultString += str;
+                    }
+                }
+            }
+
+            return resultString;
         }
     }
 }
